@@ -24,7 +24,7 @@ The node features explicit visual feedback confirming outgoing telemetry transmi
 All data exchanged over the MQTT broker adheres to strict JSON document standards using Benoit Blanchon's ArduinoJson library (v6/v7). The MQTT client buffer is explicitly allocated to 512 bytes to prevent frame truncation.
 <img width="523" height="223" alt="image" src="https://github.com/user-attachments/assets/997cbd5e-6363-4a30-9210-d785455d073e" />
 
-<img width="509" height="239" alt="image" src="https://github.com/user-attachments/assets/2e4a17be-b88f-486e-b042-0620a2a5ee9f" />
+
 
 JSON Payload Schema (ecoprosus/esp32-01/soil/moisture)
 Example JSON structure published every 30 seconds:
