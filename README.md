@@ -43,10 +43,15 @@ Example JSON structure published every 30 seconds:
 6. FC-28 Calibration & Mathematical Model
 The FC-28 sensor's analog output voltage decreases inversely with soil moisture. The onboard ADC generates 12-bit integer readings (0 to 4095). In the firmware, soil moisture percentage is computed with inverse linear interpolation:
 Moisture Percentage (%) = [(DRY_VALUE - Analog_Raw) / (DRY_VALUE - WET_VALUE)] × 100.0
-<img width="505" height="326" alt="image" src="https://github.com/user-attachments/assets/3543b8bb-1216-46d4-9aa5-d53befddf558" />
+
+<img width="509" height="239" alt="image" src="https://github.com/user-attachments/assets/3be4487e-4008-46dc-aaa6-5ffe07697258" />
+
 
 7. Software Dependencies & Libraries
 The project requires the following standard Arduino/ESP32 core libraries:
+<img width="505" height="339" alt="image" src="https://github.com/user-attachments/assets/54248d4e-26ff-43d0-a89f-2f39d2082869" />
+
+
 8. Commissioning Procedure & Field Verification Checklist
 ☐  Verify FC-28 VCC is connected to 3.3V (NOT 5V) and AO is wired to GPIO 34.
 ☐  Verify TX LED (GPIO 18) and ACK LED (GPIO 23) each have 220–330 Ω series resistors to ground.
@@ -58,7 +63,7 @@ The project requires the following standard Arduino/ESP32 core libraries:
 ☐  Observe TX LED double-blink during publish and ACK LED triple-blink upon Node-RED response.
 ☐  Confirm OLED screen scrolls 'Ecoprosus' and displays live Wi-Fi, MQTT, Moisture %, and ADC values.
 
-![Uploading image.png…]()
+
 
 
 
