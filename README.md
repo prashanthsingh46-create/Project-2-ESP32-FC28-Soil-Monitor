@@ -4,6 +4,7 @@ Soil Wet/ Dry(Conditions) Monitoring using ESP32, FC-28 Soil Sensor and OLED Dis
 1. Project Overview
 This technical document details the implementation of ECOPROSUS ESP32 Node 01, designed for precision soil moisture monitoring and IoT telemetry. The system reads analog and digital signals from an FC-28 soil moisture sensor probe, presents live telemetry on a 0.96″ SSD1306 OLED display, and transmits structured JSON telemetry to a centralized Raspberry Pi MQTT broker every 30 seconds. A closed-loop ACK (acknowledgment) mechanism provides positive hardware indication via dedicated LED patterns.
 <img width="355" height="334" alt="image" src="https://github.com/user-attachments/assets/2943f3b2-2efc-4cd0-8137-3b4baa952bac" />
+
 2. System Architecture & Communication Handshake
 The node employs a non-blocking asynchronous architecture allowing concurrent sensor sampling, display animation, MQTT socket maintenance, and two-way handshake validation:
 • Upstream Telemetry Path: FC-28 Sensor → ESP32 ADC/GPIO → JSON Serialization → Wi-Fi STA → MQTT Broker (Raspberry Pi 172.16.0.132:1883) → Node-RED Flow.
@@ -14,13 +15,16 @@ The node employs a non-blocking asynchronous architecture allowing concurrent se
 3. Complete Hardware Wiring & Pin Diagram 
 The table below provides exact pin-to-pin connections for ESP32 Node 01. Ensure common ground between all modules and use series current-limiting resistors for LEDs.
 <img width="3774" height="2520" alt="FC-28 Sensor" src="https://github.com/user-attachments/assets/73749acd-4427-4187-aeb8-9c400ad0beac" />
+
 4. Visual LED Signaling & Sequence Logic
 The node features explicit visual feedback confirming outgoing telemetry transmission and confirmed broker delivery:
 <img width="505" height="156" alt="image" src="https://github.com/user-attachments/assets/fbe4d81a-3581-4f92-b09f-2244b82d1e29" />
+
 <img width="523" height="223" alt="image" src="https://github.com/user-attachments/assets/997cbd5e-6363-4a30-9210-d785455d073e" />
 5. MQTT Topics & JSON Telemetry Specification
 All data exchanged over the MQTT broker adheres to strict JSON document standards using Benoit Blanchon's ArduinoJson library (v6/v7). The MQTT client buffer is explicitly allocated to 512 bytes to prevent frame truncation.
 <img width="509" height="239" alt="image" src="https://github.com/user-attachments/assets/2e4a17be-b88f-486e-b042-0620a2a5ee9f" />
+
 JSON Payload Schema (ecoprosus/esp32-01/soil/moisture)
 Example JSON structure published every 30 seconds:
 {
@@ -39,6 +43,7 @@ Example JSON structure published every 30 seconds:
 The FC-28 sensor's analog output voltage decreases inversely with soil moisture. The onboard ADC generates 12-bit integer readings (0 to 4095). In the firmware, soil moisture percentage is computed with inverse linear interpolation:
 Moisture Percentage (%) = [(DRY_VALUE - Analog_Raw) / (DRY_VALUE - WET_VALUE)] × 100.0
 <img width="505" height="326" alt="image" src="https://github.com/user-attachments/assets/3543b8bb-1216-46d4-9aa5-d53befddf558" />
+
 7. Software Dependencies & Libraries
 The project requires the following standard Arduino/ESP32 core libraries:
 8. Commissioning Procedure & Field Verification Checklist
